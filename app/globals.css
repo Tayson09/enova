@@ -12,15 +12,286 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+}
+
+.answer-sheet-shell {
+  background:
+    radial-gradient(circle at 12% 12%, rgba(22, 119, 255, 0.09), transparent 25rem),
+    radial-gradient(circle at 88% 82%, rgba(39, 174, 96, 0.08), transparent 24rem),
+    #f5f8fc;
+}
+
+.answer-ambient {
+  position: fixed;
+  pointer-events: none;
+  border-radius: 9999px;
+  filter: blur(70px);
+  opacity: 0.8;
+}
+
+.answer-ambient-one {
+  left: -8rem;
+  top: 18%;
+  width: 20rem;
+  height: 20rem;
+  background: rgba(22, 119, 255, 0.08);
+}
+
+.answer-ambient-two {
+  right: -7rem;
+  bottom: -5rem;
+  width: 24rem;
+  height: 24rem;
+  background: rgba(39, 174, 96, 0.08);
+}
+
+.answer-metric {
+  min-width: 0;
+  border: 1px solid rgba(231, 238, 246, 0.9);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.88);
+  padding: 12px 14px;
+  box-shadow: 0 12px 35px rgba(16, 42, 67, 0.06);
+  backdrop-filter: blur(16px);
+}
+
+.answer-metric strong {
+  display: block;
+  margin-top: 3px;
+  color: #102a43;
+  font-size: 24px;
+  line-height: 1;
+}
+
+.answer-metric-label {
+  display: block;
+  color: #64748b;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.answer-metric-correct strong {
+  color: #159447;
+}
+
+.answer-metric-wrong strong {
+  color: #dc4c64;
+}
+
+.finish-button {
+  background: linear-gradient(135deg, #1677ff, #0e63d7);
+  box-shadow: 0 10px 24px rgba(22, 119, 255, 0.24);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.finish-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(22, 119, 255, 0.32);
+}
+
+.answer-choice {
+  aspect-ratio: 1.12;
+  min-height: 64px;
+  border: 1px solid #dfe7ef;
+  border-radius: 18px;
+  background: #ffffff;
+  color: #334e68;
+  font-size: 18px;
+  font-weight: 900;
+  box-shadow: 0 8px 24px rgba(16, 42, 67, 0.05);
+  transition:
+    transform 180ms cubic-bezier(.2,.8,.2,1),
+    border-color 180ms ease,
+    background 180ms ease,
+    color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.answer-choice:not(:disabled):hover {
+  transform: translateY(-3px);
+  border-color: #1677ff;
+  color: #1677ff;
+  box-shadow: 0 12px 28px rgba(22, 119, 255, 0.12);
+}
+
+.answer-choice-selected {
+  transform: scale(1.04);
+}
+
+.answer-choice-correct {
+  border-color: #27ae60;
+  background: linear-gradient(145deg, #effaf4, #daf3e5);
+  color: #158347;
+  box-shadow: 0 12px 30px rgba(39, 174, 96, 0.18);
+}
+
+.answer-choice-wrong {
+  border-color: #dc4c64;
+  background: linear-gradient(145deg, #fff3f5, #fde4e8);
+  color: #c53e55;
+  box-shadow: 0 12px 30px rgba(220, 76, 100, 0.16);
+}
+
+.answer-choice-annulled {
+  border-color: #94a3b8;
+  background: #eef2f6;
+  color: #52657a;
+}
+
+.answer-pulse-correct {
+  animation: answerSuccess 650ms cubic-bezier(.2,.8,.2,1);
+}
+
+.answer-pulse-wrong {
+  animation: answerError 650ms cubic-bezier(.36,.07,.19,.97);
+}
+
+.answer-feedback-correct {
+  border: 1px solid rgba(39, 174, 96, 0.16);
+  background: linear-gradient(135deg, #effaf4, #e6f6ed);
+  color: #158347;
+  animation: feedbackIn 350ms ease-out;
+}
+
+.answer-feedback-wrong {
+  border: 1px solid rgba(220, 76, 100, 0.16);
+  background: linear-gradient(135deg, #fff3f5, #fde9ec);
+  color: #c53e55;
+  animation: feedbackIn 350ms ease-out;
+}
+
+.answer-feedback-annulled {
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  background: #eef2f6;
+  color: #52657a;
+  animation: feedbackIn 350ms ease-out;
+}
+
+.answer-number-grid {
+  display: grid;
+  grid-template-columns: repeat(10, minmax(0, 1fr));
+  gap: 7px;
+}
+
+.answer-number {
+  position: relative;
+  aspect-ratio: 1;
+  min-width: 0;
+  border: 1px solid #e4ebf3;
+  border-radius: 11px;
+  background: #f8fafc;
+  color: #64748b;
+  font-size: 11px;
+  font-weight: 800;
+  transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+}
+
+.answer-number:hover {
+  transform: translateY(-2px);
+  border-color: #1677ff;
+}
+
+.answer-number span {
+  position: absolute;
+  right: -4px;
+  top: -6px;
+  display: flex;
+  width: 17px;
+  height: 17px;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid white;
+  border-radius: 9999px;
+  background: #64748b;
+  color: white;
+  font-size: 8px;
+  line-height: 1;
+}
+
+.answer-number-active {
+  border-color: #1677ff;
+  box-shadow: 0 0 0 3px rgba(22, 119, 255, 0.1);
+}
+
+.answer-number-correct {
+  border-color: #27ae60;
+  background: #effaf4;
+  color: #158347;
+}
+
+.answer-number-correct span {
+  background: #27ae60;
+}
+
+.answer-number-wrong {
+  border-color: #dc4c64;
+  background: #fff3f5;
+  color: #c53e55;
+}
+
+.answer-number-wrong span {
+  background: #dc4c64;
+}
+
+.answer-number-annulled {
+  border-style: dashed;
+  color: #52657a;
+}
+
+@keyframes answerSuccess {
+  0% { transform: scale(1); }
+  35% { transform: scale(1.13); box-shadow: 0 0 0 12px rgba(39, 174, 96, 0); }
+  70% { transform: scale(.98); box-shadow: 0 0 0 18px rgba(39, 174, 96, .12); }
+  100% { transform: scale(1.04); }
+}
+
+@keyframes answerError {
+  0%, 100% { transform: translateX(0) scale(1.04); }
+  20% { transform: translateX(-7px) scale(1.04); }
+  40% { transform: translateX(7px) scale(1.04); }
+  60% { transform: translateX(-4px) scale(1.04); }
+  80% { transform: translateX(4px) scale(1.04); }
+}
+
+@keyframes feedbackIn {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 639px) {
+  .answer-choice {
+    min-height: 58px;
+    border-radius: 15px;
+  }
+
+  .answer-number-grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .answer-choice,
+  .answer-number,
+  .finish-button {
+    transition: none;
+  }
+
+  .answer-pulse-correct,
+  .answer-pulse-wrong,
+  .answer-feedback-correct,
+  .answer-feedback-wrong,
+  .answer-feedback-annulled {
+    animation: none;
+  }
 }

@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:17
+    container_name: enova-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: enova
+      POSTGRES_USER: enova
+      POSTGRES_PASSWORD: enova_local_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - enova-postgres-data:/var/lib/postgresql/data
+
+volumes:
+  enova-postgres-data:

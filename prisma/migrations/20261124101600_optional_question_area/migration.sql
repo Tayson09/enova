@@ -1,0 +1,1 @@
+ALTER TABLE "Question" ALTER COLUMN "area" DROP NOT NULL;
