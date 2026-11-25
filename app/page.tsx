@@ -183,7 +183,7 @@ export default function Home() {
 
           <div className="mt-7 flex items-center gap-3">
             <span className="h-px flex-1 bg-[#EDF2F7]" />
-            <span className="text-xs text-[#94A3B8]">novo por aqui?</span>
+            <span className="text-xs text-[#94A3B8]">novo por aqui? Cadastra-se</span>
             <span className="h-px flex-1 bg-[#EDF2F7]" />
           </div>
 
